@@ -1,0 +1,41 @@
+cd('C:\Users\22829\Desktop\three-stage task'); % modify file location
+
+
+Screen('Preference','SkipSyncTests',1);
+
+sub_code='XXX'; % Subject No
+
+test_switch = 'real';
+
+color_case = ceil(rand(1)*6);
+
+
+% pre-training session
+
+session_opt='pre';
+
+sess_num=1;
+
+SIMUL_arbitration_fmri3(sub_code, 1, 'pre', color_case, test_switch);
+
+Screen('Preference','SkipSyncTests',1)
+
+
+% main sessions 
+
+session_opt='fmri'; 
+for sess_num =[1:1:5] 
+% session
+SIMUL_arbitration_fmri3(sub_code, sess_num, 'fmri', color_case, test_switch); 
+% wait to start a next session 
+disp('please wait for instructions.'); 
+continue_key = 71; % this is key 'G' 
+press = 0; 
+while press == 0; 
+[~, ~, kb_keycode] = KbCheck; 
+if find(kb_keycode)==continue_key; 
+press = 1; 
+end 
+end 
+end 
+disp('THANK YOU - EXPERIMENT FINISHED');
